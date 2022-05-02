@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <remote name="aosp" fetch="https://android.googlesource.com" review="android-review.googlesource.com" revision="refs/tags/android-12.0.0_r27"/>
+  <remote name="aosp" fetch="https://android.googlesource.com" review="android-review.googlesource.com" revision="refs/tags/android-12.1.0_r4"/>
   <remote name="github" fetch=".." review="review.lineageos.org"/>
   <remote name="private" fetch="ssh://git@github.com"/>
   
-  <default remote="github" revision="refs/heads/lineage-19.0" sync-j="4" sync-c="true"/>
+  <default remote="github" revision="refs/heads/lineage-19.1" sync-j="4" sync-c="true"/>
   
   <project name="LineageOS/android" path="android"/>
   <project name="LineageOS/android_bionic" path="bionic" groups="pdk"/>
@@ -22,13 +22,15 @@
     <linkfile src="root.bp" dest="Android.bp"/>
     <linkfile src="bootstrap.bash" dest="bootstrap.bash"/>
   </project>
+  <project name="LineageOS/android_device_generic_common" path="device/generic/common" groups="pdk"/>
   <project name="LineageOS/android_device_google_atv" path="device/google/atv" groups="device,broadcom_pdk,generic_fs,pdk"/>
   <project name="LineageOS/android_device_lineage_atv" path="device/lineage/atv"/>
+  <project name="LineageOS/android_device_lineage_car" path="device/lineage/car"/>
   <project name="LineageOS/android_device_lineage_sepolicy" path="device/lineage/sepolicy"/>
   <project name="LineageOS/android_device_qcom_sepolicy" path="device/qcom/sepolicy" groups="qcom,pdk-qcom"/>
-  <project name="LineageOS/android_device_qcom_sepolicy" path="device/qcom/sepolicy-legacy-um" revision="lineage-19.0-legacy-um" groups="qcom,pdk-qcom"/>
+  <project name="LineageOS/android_device_qcom_sepolicy" path="device/qcom/sepolicy-legacy-um" revision="lineage-19.1-legacy-um" groups="qcom,pdk-qcom"/>
   <project name="LineageOS/android_device_qcom_sepolicy_vndr" path="device/qcom/sepolicy_vndr" groups="qcom,pdk-qcom"/>
-  <project name="LineageOS/android_device_samsung_gts4lv-common" path="device/samsung/gts4lv-common" groups="local::roomservice"/>
+  <project name="LineageOS/android_device_samsung_gts4lvwifi" path="device/samsung/gts4lvwifi" groups="local::roomservice"/>
   <project name="LineageOS/android_device_samsung_qcom-common" path="device/samsung/qcom-common" groups="local::roomservice"/>
   <project name="LineageOS/android_external_android-nn-driver" path="external/android-nn-driver" groups="pdk-lassen"/>
   <project name="LineageOS/android_external_ant-wireless_ant_client" path="external/ant-wireless/ant_client"/>
@@ -36,7 +38,15 @@
   <project name="LineageOS/android_external_ant-wireless_ant_service" path="external/ant-wireless/ant_service"/>
   <project name="LineageOS/android_external_ant-wireless_hidl" path="external/ant-wireless/hidl"/>
   <project name="LineageOS/android_external_armnn" path="external/armnn" groups="pdk-lassen"/>
-  <project name="LineageOS/android_external_chromium-webview" path="external/chromium-webview" revision="master" groups="pdk" clone-depth="1"/>
+  <project name="LineageOS/android_external_bash" path="external/bash"/>
+  <project name="LineageOS/android_external_chromium-webview_patches" path="external/chromium-webview/patches" revision="main" groups="pdk">
+    <linkfile src="Android.mk" dest="external/chromium-webview/Android.mk"/>
+    <linkfile src="CleanSpec.mk" dest="external/chromium-webview/CleanSpec.mk"/>
+    <linkfile src="README" dest="external/chromium-webview/README"/>
+  </project>
+  <project name="LineageOS/android_external_chromium-webview_prebuilt_arm" path="external/chromium-webview/prebuilt/arm" revision="main" groups="pdk" clone-depth="1"/>
+  <project name="LineageOS/android_external_chromium-webview_prebuilt_arm64" path="external/chromium-webview/prebuilt/arm64" revision="main" groups="pdk" clone-depth="1"/>
+  <project name="LineageOS/android_external_chromium-webview_prebuilt_x86" path="external/chromium-webview/prebuilt/x86" revision="main" groups="pdk" clone-depth="1"/>
   <project name="LineageOS/android_external_e2fsprogs" path="external/e2fsprogs" groups="pdk"/>
   <project name="LineageOS/android_external_exfatprogs" path="external/exfatprogs"/>
   <project name="LineageOS/android_external_gptfdisk" path="external/gptfdisk" groups="pdk"/>
@@ -45,42 +55,67 @@
   <project name="LineageOS/android_external_libcxx" path="external/libcxx" groups="pdk"/>
   <project name="LineageOS/android_external_libncurses" path="external/libncurses"/>
   <project name="LineageOS/android_external_mksh" path="external/mksh" groups="pdk"/>
+  <project name="LineageOS/android_external_nano" path="external/nano"/>
   <project name="LineageOS/android_external_openssh" path="external/openssh" groups="pdk"/>
+  <project name="LineageOS/android_external_setupcompat" path="external/setupcompat" groups="pdk"/>
   <project name="LineageOS/android_external_tinycompress" path="external/tinycompress" groups="pdk"/>
+  <project name="LineageOS/android_external_vim" path="external/vim"/>
   <project name="LineageOS/android_external_wpa_supplicant_8" path="external/wpa_supplicant_8" groups="pdk"/>
   <project name="LineageOS/android_frameworks_av" path="frameworks/av" groups="pdk"/>
   <project name="LineageOS/android_frameworks_base" path="frameworks/base" groups="pdk-cw-fs,pdk-fs"/>
   <project name="LineageOS/android_frameworks_native" path="frameworks/native" groups="pdk"/>
+  <project name="LineageOS/android_frameworks_opt_telephony" path="frameworks/opt/telephony" groups="pdk"/>
   <project name="LineageOS/android_frameworks_opt_timezonepicker" path="frameworks/opt/timezonepicker" groups="pdk-cw-fs,pdk-fs"/>
   <project name="LineageOS/android_hardware_google_pixel" path="hardware/google/pixel" groups="generic_fs,pixel"/>
   <project name="LineageOS/android_hardware_google_pixel-sepolicy" path="hardware/google/pixel-sepolicy" groups="generic_fs,pixel"/>
+  <project name="LineageOS/android_hardware_interfaces" path="hardware/interfaces" groups="pdk"/>
   <project name="LineageOS/android_hardware_knowles_athletico_sound_trigger_hal" path="hardware/knowles/athletico/sound_trigger_hal" groups="coral,generic_fs"/>
   <project name="LineageOS/android_hardware_libhardware" path="hardware/libhardware" groups="pdk"/>
   <project name="LineageOS/android_hardware_lineage_interfaces" path="hardware/lineage/interfaces"/>
   <project name="LineageOS/android_hardware_lineage_livedisplay" path="hardware/lineage/livedisplay"/>
   <project name="LineageOS/android_hardware_qcom-caf_common" path="hardware/qcom-caf/common" groups="qcom,pdk-qcom">
     <linkfile src="os_pickup_aosp.mk" dest="hardware/qcom/Android.mk"/>
+    <linkfile src="os_pickup.bp" dest="hardware/qcom-caf/msm8996/Android.bp"/>
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/msm8996/Android.mk"/>
+    <linkfile src="os_pickup.bp" dest="hardware/qcom-caf/msm8998/Android.bp"/>
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/msm8998/Android.mk"/>
     <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sdm845/Android.bp"/>
     <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/sdm845/Android.mk"/>
     <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sm8150/Android.bp"/>
     <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/sm8150/Android.mk"/>
+    <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sm8250/Android.bp"/>
+    <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/sm8250/Android.mk"/>
     <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sm8350/Android.bp"/>
     <linkfile src="os_pickup.mk" dest="hardware/qcom-caf/sm8350/Android.mk"/>
+    <linkfile src="os_pickup.bp" dest="vendor/nxp/opensource/pn5xx/Android.bp"/>
+    <linkfile src="os_pickup.mk" dest="vendor/nxp/opensource/pn5xx/Android.mk"/>
+    <linkfile src="os_pickup.bp" dest="vendor/nxp/opensource/sn100x/Android.bp"/>
+    <linkfile src="os_pickup.mk" dest="vendor/nxp/opensource/sn100x/Android.mk"/>
     <linkfile src="os_pickup_qssi_bt.bp" dest="device/qcom/qssi/Android.bp"/>
   </project>
   <project name="LineageOS/android_hardware_qcom_audio" path="hardware/qcom/audio" groups="qcom,qcom_audio,pdk-qcom"/>
-  <project name="LineageOS/android_hardware_qcom_audio" path="hardware/qcom-caf/sdm845/audio" revision="lineage-19.0-caf-sdm845" groups="qcom,qcom_audio,pdk-qcom"/>
-  <project name="LineageOS/android_hardware_qcom_audio" path="hardware/qcom-caf/sm8150/audio" revision="lineage-19.0-caf-sm8150" groups="qcom,qcom_audio,pdk-qcom"/>
-  <project name="LineageOS/android_hardware_qcom_audio" path="hardware/qcom-caf/sm8350/audio" revision="lineage-19.0-caf-sm8350" groups="qcom,qcom_audio,pdk-qcom"/>
-  <project name="LineageOS/android_hardware_qcom_bootctrl" path="hardware/qcom-caf/bootctrl" revision="lineage-19.0-caf" groups="qcom,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_audio" path="hardware/qcom-caf/msm8996/audio" revision="lineage-19.1-caf-msm8996" groups="qcom,qcom_audio,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_audio" path="hardware/qcom-caf/msm8998/audio" revision="lineage-19.1-caf-msm8998" groups="qcom,qcom_audio,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_audio" path="hardware/qcom-caf/sdm845/audio" revision="lineage-19.1-caf-sdm845" groups="qcom,qcom_audio,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_audio" path="hardware/qcom-caf/sm8150/audio" revision="lineage-19.1-caf-sm8150" groups="qcom,qcom_audio,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_audio" path="hardware/qcom-caf/sm8250/audio" revision="lineage-19.1-caf-sm8250" groups="qcom,qcom_audio,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_audio" path="hardware/qcom-caf/sm8350/audio" revision="lineage-19.1-caf-sm8350" groups="qcom,qcom_audio,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_bootctrl" path="hardware/qcom-caf/bootctrl" revision="lineage-19.1-caf" groups="qcom,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_bt" path="hardware/qcom-caf/bt" revision="lineage-19.1-caf" groups="qcom,pdk-qcom"/>
   <project name="LineageOS/android_hardware_qcom_camera" path="hardware/qcom/camera" groups="qcom_camera,pdk-qcom"/>
   <project name="LineageOS/android_hardware_qcom_data_ipacfg-mgr" path="hardware/qcom/data/ipacfg-mgr" groups="qcom,pdk-qcom"/>
-  <project name="LineageOS/android_hardware_qcom_display" path="hardware/qcom-caf/sdm845/display" revision="lineage-19.0-caf-sdm845" groups="pdk-qcom,qcom,qcom_display"/>
-  <project name="LineageOS/android_hardware_qcom_display" path="hardware/qcom-caf/sm8150/display" revision="lineage-19.0-caf-sm8150" groups="pdk-qcom,qcom,qcom_display"/>
-  <project name="LineageOS/android_hardware_qcom_display" path="hardware/qcom-caf/sm8350/display" revision="lineage-19.0-caf-sm8350" groups="pdk-qcom,qcom,qcom_display"/>
-  <project name="LineageOS/android_hardware_qcom_media" path="hardware/qcom-caf/sdm845/media" revision="lineage-19.0-caf-sdm845" groups="qcom,pdk-qcom"/>
-  <project name="LineageOS/android_hardware_qcom_media" path="hardware/qcom-caf/sm8150/media" revision="lineage-19.0-caf-sm8150" groups="qcom,pdk-qcom"/>
-  <project name="LineageOS/android_hardware_qcom_media" path="hardware/qcom-caf/sm8350/media" revision="lineage-19.0-caf-sm8350" groups="qcom,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_display" path="hardware/qcom-caf/msm8996/display" revision="lineage-19.1-caf-msm8996" groups="pdk-qcom,qcom,qcom_display"/>
+  <project name="LineageOS/android_hardware_qcom_display" path="hardware/qcom-caf/msm8998/display" revision="lineage-19.1-caf-msm8998" groups="pdk-qcom,qcom,qcom_display"/>
+  <project name="LineageOS/android_hardware_qcom_display" path="hardware/qcom-caf/sdm845/display" revision="lineage-19.1-caf-sdm845" groups="pdk-qcom,qcom,qcom_display"/>
+  <project name="LineageOS/android_hardware_qcom_display" path="hardware/qcom-caf/sm8150/display" revision="lineage-19.1-caf-sm8150" groups="pdk-qcom,qcom,qcom_display"/>
+  <project name="LineageOS/android_hardware_qcom_display" path="hardware/qcom-caf/sm8250/display" revision="lineage-19.1-caf-sm8250" groups="pdk-qcom,qcom,qcom_display"/>
+  <project name="LineageOS/android_hardware_qcom_display" path="hardware/qcom-caf/sm8350/display" revision="lineage-19.1-caf-sm8350" groups="pdk-qcom,qcom,qcom_display"/>
+  <project name="LineageOS/android_hardware_qcom_media" path="hardware/qcom-caf/msm8996/media" revision="lineage-19.1-caf-msm8996" groups="qcom,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_media" path="hardware/qcom-caf/msm8998/media" revision="lineage-19.1-caf-msm8998" groups="qcom,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_media" path="hardware/qcom-caf/sdm845/media" revision="lineage-19.1-caf-sdm845" groups="qcom,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_media" path="hardware/qcom-caf/sm8150/media" revision="lineage-19.1-caf-sm8150" groups="qcom,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_media" path="hardware/qcom-caf/sm8250/media" revision="lineage-19.1-caf-sm8250" groups="qcom,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_media" path="hardware/qcom-caf/sm8350/media" revision="lineage-19.1-caf-sm8350" groups="qcom,pdk-qcom"/>
   <project name="LineageOS/android_hardware_qcom_sdm845_display" path="hardware/qcom/sdm845/display" groups="generic_fs,qcom_sdm845"/>
   <project name="LineageOS/android_hardware_qcom_sdm845_media" path="hardware/qcom/sdm845/media" groups="generic_fs,qcom_sdm845"/>
   <project name="LineageOS/android_hardware_qcom_sm7250_display" path="hardware/qcom/sm7250/display" groups="qcom_sm7250"/>
@@ -92,25 +127,33 @@
   <project name="LineageOS/android_hardware_qcom_sm8150_display" path="hardware/qcom/sm8150/display" groups="qcom_sm8150"/>
   <project name="LineageOS/android_hardware_qcom_sm8150_media" path="hardware/qcom/sm8150/media" groups="qcom_sm8150"/>
   <project name="LineageOS/android_hardware_qcom_thermal" path="hardware/qcom-caf/thermal" groups="qcom,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_vr" path="hardware/qcom-caf/vr" groups="qcom,pdk-qcom"/>
   <project name="LineageOS/android_hardware_qcom_wlan" path="hardware/qcom/wlan" groups="qcom_wlan,pdk-qcom"/>
-  <project name="LineageOS/android_hardware_qcom_wlan" path="hardware/qcom-caf/wlan" revision="lineage-19.0-caf" groups="qcom_wlan,pdk-qcom"/>
+  <project name="LineageOS/android_hardware_qcom_wlan" path="hardware/qcom-caf/wlan" revision="lineage-19.1-caf" groups="qcom_wlan,pdk-qcom"/>
   <project name="LineageOS/android_hardware_ril" path="hardware/ril" groups="pdk"/>
   <project name="LineageOS/android_hardware_samsung" path="hardware/samsung" groups="local::roomservice"/>
-  <project name="LineageOS/android_kernel_samsung_sdm670" path="kernel/samsung/sdm670" revision="refs/heads/lineage-18.1" groups="local::roomservice"/>
+  <project name="LineageOS/android_kernel_configs" path="kernel/configs" groups="vts,pdk"/>
   <project name="LineageOS/android_lineage-sdk" path="lineage-sdk"/>
+  <project name="LineageOS/android_packages_apps_AudioFX" path="packages/apps/AudioFX"/>
   <project name="LineageOS/android_packages_apps_Backgrounds" path="packages/apps/Backgrounds"/>
   <project name="LineageOS/android_packages_apps_Bluetooth" path="packages/apps/Bluetooth" groups="pdk-cw-fs,pdk-fs"/>
   <project name="LineageOS/android_packages_apps_Camera2" path="packages/apps/Camera2" groups="pdk-fs"/>
   <project name="LineageOS/android_packages_apps_Car_Settings" path="packages/apps/Car/Settings" groups="pdk-fs"/>
+  <project name="LineageOS/android_packages_apps_CellBroadcastReceiver" path="packages/apps/CellBroadcastReceiver" groups="pdk-cw-fs,pdk-fs"/>
   <project name="LineageOS/android_packages_apps_Contacts" path="packages/apps/Contacts" groups="pdk-fs"/>
   <project name="LineageOS/android_packages_apps_DeskClock" path="packages/apps/DeskClock" groups="pdk-fs"/>
   <project name="LineageOS/android_packages_apps_Dialer" path="packages/apps/Dialer" groups="pdk-fs"/>
   <project name="LineageOS/android_packages_apps_DocumentsUI" path="packages/apps/DocumentsUI" groups="pdk-cw-fs,pdk-fs"/>
   <project name="LineageOS/android_packages_apps_Eleven" path="packages/apps/Eleven"/>
+  <project name="LineageOS/android_packages_apps_EmergencyInfo" path="packages/apps/EmergencyInfo" groups="pdk-fs"/>
+  <project name="LineageOS/android_packages_apps_Etar" path="packages/apps/Etar"/>
   <project name="LineageOS/android_packages_apps_ExactCalculator" path="packages/apps/ExactCalculator"/>
+  <project name="LineageOS/android_packages_apps_FlipFlap" path="packages/apps/FlipFlap"/>
+  <project name="LineageOS/android_packages_apps_Gallery2" path="packages/apps/Gallery2" groups="pdk-fs"/>
   <project name="LineageOS/android_packages_apps_Jelly" path="packages/apps/Jelly"/>
   <project name="LineageOS/android_packages_apps_LineageParts" path="packages/apps/LineageParts"/>
   <project name="LineageOS/android_packages_apps_Messaging" path="packages/apps/Messaging" groups="pdk-fs"/>
+  <project name="LineageOS/android_packages_apps_Nfc" path="packages/apps/Nfc" groups="apps_nfc,pdk-fs"/>
   <project name="LineageOS/android_packages_apps_Profiles" path="packages/apps/Profiles"/>
   <project name="LineageOS/android_packages_apps_Recorder" path="packages/apps/Recorder"/>
   <project name="LineageOS/android_packages_apps_Seedvault" path="packages/apps/Seedvault"/>
@@ -119,13 +162,16 @@
   <project name="LineageOS/android_packages_apps_SetupWizard" path="packages/apps/SetupWizard"/>
   <project name="LineageOS/android_packages_apps_SimpleDeviceConfig" path="packages/apps/SimpleDeviceConfig"/>
   <project name="LineageOS/android_packages_apps_Stk" path="packages/apps/Stk" groups="apps_stk,pdk-fs"/>
+  <project name="LineageOS/android_packages_apps_Tag" path="packages/apps/Tag" groups="pdk-fs"/>
   <project name="LineageOS/android_packages_apps_ThemePicker" path="packages/apps/ThemePicker" groups="pdk-fs"/>
   <project name="LineageOS/android_packages_apps_Trebuchet" path="packages/apps/Trebuchet"/>
   <project name="LineageOS/android_packages_apps_TvSettings" path="packages/apps/TvSettings" groups="pdk-fs"/>
   <project name="LineageOS/android_packages_apps_Updater" path="packages/apps/Updater"/>
   <project name="LineageOS/android_packages_apps_WallpaperPicker2" path="packages/apps/WallpaperPicker2" groups="pdk-fs"/>
   <project name="LineageOS/android_packages_inputmethods_LatinIME" path="packages/inputmethods/LatinIME" groups="pdk-fs"/>
+  <project name="LineageOS/android_packages_inputmethods_LeanbackIME" path="packages/inputmethods/LeanbackIME" groups="pdk-fs"/>
   <project name="LineageOS/android_packages_modules_Connectivity" path="packages/modules/Connectivity" groups="pdk-cw-fs,pdk-fs"/>
+  <project name="LineageOS/android_packages_modules_Permission" path="packages/modules/Permission" groups="pdk-cw-fs,pdk-fs"/>
   <project name="LineageOS/android_packages_modules_Wifi" path="packages/modules/Wifi" groups="pdk-cw-fs,pdk-fs"/>
   <project name="LineageOS/android_packages_modules_adb" path="packages/modules/adb" groups="pdk"/>
   <project name="LineageOS/android_packages_modules_common" path="packages/modules/common" groups="pdk-cw-fs,pdk-fs"/>
@@ -139,6 +185,7 @@
   <project name="LineageOS/android_packages_providers_MediaProvider" path="packages/providers/MediaProvider" groups="pdk-cw-fs,pdk-fs"/>
   <project name="LineageOS/android_packages_providers_TelephonyProvider" path="packages/providers/TelephonyProvider" groups="pdk-cw-fs,pdk-fs"/>
   <project name="LineageOS/android_packages_resources_devicesettings" path="packages/resources/devicesettings"/>
+  <project name="LineageOS/android_packages_screensavers_PhotoTable" path="packages/screensavers/PhotoTable" groups="pdk-fs"/>
   <project name="LineageOS/android_packages_services_Mms" path="packages/services/Mms" groups="pdk-cw-fs,pdk-fs"/>
   <project name="LineageOS/android_packages_services_Telecomm" path="packages/services/Telecomm" groups="pdk-cw-fs,pdk-fs"/>
   <project name="LineageOS/android_packages_services_Telephony" path="packages/services/Telephony" groups="pdk-cw-fs,pdk-fs"/>
@@ -154,15 +201,31 @@
   <project name="LineageOS/android_prebuilts_tools-lineage" path="prebuilts/tools-lineage" clone-depth="1"/>
   <project name="LineageOS/android_system_bt" path="system/bt" groups="pdk"/>
   <project name="LineageOS/android_system_core" path="system/core" groups="pdk"/>
+  <project name="LineageOS/android_system_extras" path="system/extras" groups="pdk"/>
+  <project name="LineageOS/android_system_keymaster" path="system/keymaster" groups="pdk"/>
+  <project name="LineageOS/android_system_libhidl" path="system/libhidl" groups="pdk"/>
   <project name="LineageOS/android_system_libziparchive" path="system/libziparchive" groups="pdk"/>
   <project name="LineageOS/android_system_logging" path="system/logging" groups="pdk"/>
   <project name="LineageOS/android_system_media" path="system/media" groups="pdk"/>
+  <project name="LineageOS/android_system_security" path="system/security" groups="pdk"/>
   <project name="LineageOS/android_system_sepolicy" path="system/sepolicy" groups="pdk"/>
   <project name="LineageOS/android_system_tools_mkbootimg" path="system/tools/mkbootimg" groups="pdk"/>
   <project name="LineageOS/android_system_update_engine" path="system/update_engine" groups="pdk"/>
   <project name="LineageOS/android_tools_extract-utils" path="tools/extract-utils"/>
   <project name="LineageOS/android_vendor_codeaurora_telephony" path="vendor/codeaurora/telephony"/>
+  <project name="LineageOS/android_vendor_crowdin" path="vendor/crowdin"/>
   <project name="LineageOS/android_vendor_lineage" path="vendor/lineage"/>
+  <project name="LineageOS/android_vendor_nxp_interfaces_opensource_nfc" path="vendor/nxp/opensource/interfaces/nfc"/>
+  <project name="LineageOS/android_vendor_nxp_nfc" path="vendor/nxp/nfc"/>
+  <project name="LineageOS/android_vendor_nxp_opensource_external_libnfc-nci" path="vendor/nxp/opensource/commonsys/external/libnfc-nci"/>
+  <project name="LineageOS/android_vendor_nxp_opensource_frameworks" path="vendor/nxp/opensource/commonsys/frameworks"/>
+  <project name="LineageOS/android_vendor_nxp_opensource_halimpl" path="vendor/nxp/opensource/pn5xx/halimpl" revision="lineage-19.1-pn5xx"/>
+  <project name="LineageOS/android_vendor_nxp_opensource_halimpl" path="vendor/nxp/opensource/sn100x/halimpl" revision="lineage-19.1-sn100x"/>
+  <project name="LineageOS/android_vendor_nxp_opensource_hidlimpl" path="vendor/nxp/opensource/pn5xx/hidlimpl" revision="lineage-19.1-pn5xx"/>
+  <project name="LineageOS/android_vendor_nxp_opensource_hidlimpl" path="vendor/nxp/opensource/sn100x/hidlimpl" revision="lineage-19.1-sn100x"/>
+  <project name="LineageOS/android_vendor_nxp_opensource_packages_apps_Nfc" path="vendor/nxp/opensource/commonsys/packages/apps/Nfc"/>
+  <project name="LineageOS/android_vendor_nxp_secure_element" path="vendor/nxp/secure_element"/>
+  <project name="LineageOS/android_vendor_nxp_secure_element_extns" path="vendor/nxp/secure_element_extns"/>
   <project name="LineageOS/android_vendor_qcom_opensource_audio" path="vendor/qcom/opensource/audio" groups="qcom,pdk-qcom"/>
   <project name="LineageOS/android_vendor_qcom_opensource_audio-hal_st-hal" path="vendor/qcom/opensource/audio-hal/st-hal" groups="qcom,pdk-qcom"/>
   <project name="LineageOS/android_vendor_qcom_opensource_bluetooth-commonsys-intf" path="vendor/qcom/opensource/commonsys-intf/bluetooth" groups="qcom,pdk-qcom"/>
@@ -172,6 +235,7 @@
   <project name="LineageOS/android_vendor_qcom_opensource_display" path="vendor/qcom/opensource/display" groups="qcom,pdk-qcom"/>
   <project name="LineageOS/android_vendor_qcom_opensource_display-commonsys" path="vendor/qcom/opensource/commonsys/display" groups="qcom,pdk-qcom"/>
   <project name="LineageOS/android_vendor_qcom_opensource_display-commonsys-intf" path="vendor/qcom/opensource/commonsys-intf/display" groups="qcom,pdk-qcom"/>
+  <project name="LineageOS/android_vendor_qcom_opensource_fm-commonsys" path="vendor/qcom/opensource/fm-commonsys" groups="qcom,qcom_fm"/>
   <project name="LineageOS/android_vendor_qcom_opensource_interfaces" path="vendor/qcom/opensource/interfaces" groups="qcom,pdk-qcom"/>
   <project name="LineageOS/android_vendor_qcom_opensource_packages_apps_Bluetooth" path="vendor/qcom/opensource/commonsys/packages/apps/Bluetooth" groups="qcom,pdk-qcom"/>
   <project name="LineageOS/android_vendor_qcom_opensource_power" path="vendor/qcom/opensource/power" groups="qcom,pdk-qcom"/>
@@ -197,7 +261,6 @@
   <project name="device/generic/armv7-a-neon" remote="aosp" groups="pdk"/>
   <project name="device/generic/art" remote="aosp" groups="pdk"/>
   <project name="device/generic/car" remote="aosp" groups="pdk"/>
-  <project name="device/generic/common" remote="aosp" groups="pdk"/>
   <project name="device/generic/goldfish" remote="aosp" groups="pdk"/>
   <project name="device/generic/goldfish-opengl" remote="aosp" groups="pdk"/>
   <project name="device/generic/mini-emulator-arm64" remote="aosp" groups="pdk"/>
@@ -215,7 +278,6 @@
   <project name="device/google/cuttlefish_prebuilts" remote="aosp" groups="device,pdk" clone-depth="1"/>
   <project name="device/google/vrservices" remote="aosp" groups="pdk"/>
   <project name="device/sample" remote="aosp" groups="pdk"/>
-  <project name="kernel/configs" remote="aosp" groups="vts,pdk"/>
   <project name="kernel/prebuilts/4.19/arm64" remote="aosp" groups="pdk" clone-depth="1"/>
   <project name="kernel/prebuilts/5.10/arm64" remote="aosp" groups="pdk" clone-depth="1"/>
   <project name="kernel/prebuilts/5.10/x86-64" path="kernel/prebuilts/5.10/x86_64" remote="aosp" groups="pdk" clone-depth="1"/>
@@ -252,10 +314,10 @@
   <project name="platform/external/OpenCL-CTS" path="external/OpenCL-CTS" remote="aosp"/>
   <project name="platform/external/OpenCSD" path="external/OpenCSD" remote="aosp" groups="pdk"/>
   <project name="platform/external/Reactive-Extensions/RxCpp" path="external/Reactive-Extensions/RxCpp" remote="aosp" groups="pdk"/>
+  <project name="platform/external/TestParameterInjector" path="external/TestParameterInjector" remote="aosp" groups="pdk"/>
   <project name="platform/external/XNNPACK" path="external/XNNPACK" remote="aosp" groups="pdk"/>
   <project name="platform/external/aac" path="external/aac" remote="aosp" groups="pdk"/>
   <project name="platform/external/abseil-cpp" path="external/abseil-cpp" remote="aosp" groups="pdk"/>
-  <project name="platform/external/adhd" path="external/adhd" remote="aosp" groups="pdk"/>
   <project name="platform/external/android-clat" path="external/android-clat" remote="aosp" groups="pdk"/>
   <project name="platform/external/androidplot" path="external/androidplot" remote="aosp" groups="pdk"/>
   <project name="platform/external/angle" path="external/angle" remote="aosp" groups="pdk"/>
@@ -610,6 +672,7 @@
   <project name="platform/external/rust/crates/futures-task" path="external/rust/crates/futures-task" remote="aosp" groups="pdk"/>
   <project name="platform/external/rust/crates/futures-util" path="external/rust/crates/futures-util" remote="aosp" groups="pdk"/>
   <project name="platform/external/rust/crates/gdbstub" path="external/rust/crates/gdbstub" remote="aosp" groups="pdk"/>
+  <project name="platform/external/rust/crates/gdbstub_arch" path="external/rust/crates/gdbstub_arch" remote="aosp" groups="pdk"/>
   <project name="platform/external/rust/crates/getrandom" path="external/rust/crates/getrandom" remote="aosp" groups="pdk"/>
   <project name="platform/external/rust/crates/glob" path="external/rust/crates/glob" remote="aosp" groups="pdk"/>
   <project name="platform/external/rust/crates/grpcio" path="external/rust/crates/grpcio" remote="aosp" groups="pdk"/>
@@ -738,7 +801,6 @@
   <project name="platform/external/scudo" path="external/scudo" remote="aosp" groups="pdk"/>
   <project name="platform/external/seccomp-tests" path="external/seccomp-tests" remote="aosp" groups="pdk"/>
   <project name="platform/external/selinux" path="external/selinux" remote="aosp" groups="pdk"/>
-  <project name="platform/external/setupcompat" path="external/setupcompat" remote="aosp" groups="pdk"/>
   <project name="platform/external/setupdesign" path="external/setupdesign" remote="aosp" groups="pdk"/>
   <project name="platform/external/sfntly" path="external/sfntly" remote="aosp" groups="pdk,qcom_msm8x26"/>
   <project name="platform/external/shaderc/spirv-headers" path="external/shaderc/spirv-headers" remote="aosp" groups="pdk"/>
@@ -782,7 +844,6 @@
   <project name="platform/external/vboot_reference" path="external/vboot_reference" remote="aosp" groups="vboot,pdk-fs"/>
   <project name="platform/external/virglrenderer" path="external/virglrenderer" remote="aosp" groups="pdk"/>
   <project name="platform/external/vixl" path="external/vixl" remote="aosp" groups="pdk"/>
-  <project name="platform/external/vm_tools/p9" path="external/vm_tools/p9" remote="aosp" groups="pdk"/>
   <project name="platform/external/vogar" path="external/vogar" remote="aosp" groups="pdk"/>
   <project name="platform/external/volley" path="external/volley" remote="aosp" groups="pdk"/>
   <project name="platform/external/vulkan-headers" path="external/vulkan-headers" remote="aosp" groups="pdk"/>
@@ -827,7 +888,6 @@
   <project name="platform/frameworks/opt/net/wifi" path="frameworks/opt/net/wifi" remote="aosp" groups="pdk"/>
   <project name="platform/frameworks/opt/photoviewer" path="frameworks/opt/photoviewer" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
   <project name="platform/frameworks/opt/setupwizard" path="frameworks/opt/setupwizard" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
-  <project name="platform/frameworks/opt/telephony" path="frameworks/opt/telephony" remote="aosp" groups="pdk"/>
   <project name="platform/frameworks/opt/tv/tvsystem" path="frameworks/opt/tv/tvsystem" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
   <project name="platform/frameworks/opt/vcard" path="frameworks/opt/vcard" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
   <project name="platform/frameworks/proto_logging" path="frameworks/proto_logging" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
@@ -843,7 +903,6 @@
   <project name="platform/hardware/google/graphics/common" path="hardware/google/graphics/common" remote="aosp" groups="pdk-lassen"/>
   <project name="platform/hardware/google/graphics/gs101" path="hardware/google/graphics/gs101" remote="aosp" groups="pdk-lassen"/>
   <project name="platform/hardware/google/interfaces" path="hardware/google/interfaces" remote="aosp" groups="pdk"/>
-  <project name="platform/hardware/interfaces" path="hardware/interfaces" remote="aosp" groups="pdk"/>
   <project name="platform/hardware/invensense" path="hardware/invensense" remote="aosp" groups="invensense,pdk"/>
   <project name="platform/hardware/libhardware_legacy" path="hardware/libhardware_legacy" remote="aosp" groups="pdk"/>
   <project name="platform/hardware/nxp/nfc" path="hardware/nxp/nfc" remote="aosp" groups="pdk"/>
@@ -885,7 +944,6 @@
   <project name="platform/libcore" path="libcore" remote="aosp" groups="pdk"/>
   <project name="platform/libnativehelper" path="libnativehelper" remote="aosp" groups="pdk"/>
   <project name="platform/packages/apps/BasicSmsReceiver" path="packages/apps/BasicSmsReceiver" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
-  <project name="platform/packages/apps/Calendar" path="packages/apps/Calendar" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/apps/Car/Calendar" path="packages/apps/Car/Calendar" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/apps/Car/Cluster" path="packages/apps/Car/Cluster" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/apps/Car/DebuggingRestrictionController" path="packages/apps/Car/DebuggingRestrictionController" remote="aosp" groups="pdk-fs"/>
@@ -907,15 +965,11 @@
   <project name="platform/packages/apps/Car/libs" path="packages/apps/Car/libs" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/apps/Car/tests" path="packages/apps/Car/tests" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/apps/CarrierConfig" path="packages/apps/CarrierConfig" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
-  <project name="platform/packages/apps/CellBroadcastReceiver" path="packages/apps/CellBroadcastReceiver" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
   <project name="platform/packages/apps/CertInstaller" path="packages/apps/CertInstaller" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
-  <project name="platform/packages/apps/EmergencyInfo" path="packages/apps/EmergencyInfo" remote="aosp" groups="pdk-fs"/>
-  <project name="platform/packages/apps/Gallery2" path="packages/apps/Gallery2" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/apps/HTMLViewer" path="packages/apps/HTMLViewer" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/apps/ImsServiceEntitlement" path="packages/apps/ImsServiceEntitlement" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/apps/KeyChain" path="packages/apps/KeyChain" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/apps/ManagedProvisioning" path="packages/apps/ManagedProvisioning" remote="aosp" groups="pdk-fs"/>
-  <project name="platform/packages/apps/Nfc" path="packages/apps/Nfc" remote="aosp" groups="apps_nfc,pdk-fs"/>
   <project name="platform/packages/apps/OnDeviceAppPrediction" path="packages/apps/OnDeviceAppPrediction" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/apps/OneTimeInitializer" path="packages/apps/OneTimeInitializer" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/apps/PhoneCommon" path="packages/apps/PhoneCommon" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
@@ -927,13 +981,11 @@
   <project name="platform/packages/apps/SecureElement" path="packages/apps/SecureElement" remote="aosp" groups="apps_se,pdk-fs"/>
   <project name="platform/packages/apps/StorageManager" path="packages/apps/StorageManager" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/apps/TV" path="packages/apps/TV" remote="aosp" groups="pdk"/>
-  <project name="platform/packages/apps/Tag" path="packages/apps/Tag" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/apps/Test/connectivity" path="packages/apps/Test/connectivity" remote="aosp" groups="pdk"/>
   <project name="platform/packages/apps/TimeZoneData" path="packages/apps/TimeZoneData" remote="aosp" groups="pdk"/>
   <project name="platform/packages/apps/TimeZoneUpdater" path="packages/apps/TimeZoneUpdater" remote="aosp" groups="pdk"/>
   <project name="platform/packages/apps/Traceur" path="packages/apps/Traceur" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/apps/UniversalMediaPlayer" path="packages/apps/UniversalMediaPlayer" remote="aosp"/>
-  <project name="platform/packages/inputmethods/LeanbackIME" path="packages/inputmethods/LeanbackIME" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/modules/ArtPrebuilt" path="packages/modules/ArtPrebuilt" remote="aosp" groups="pdk" clone-depth="1"/>
   <project name="platform/packages/modules/BootPrebuilt/5.10/arm64" path="packages/modules/BootPrebuilt/5.10/arm64" remote="aosp" groups="pdk" clone-depth="1"/>
   <project name="platform/packages/modules/BootPrebuilt/5.4/arm64" path="packages/modules/BootPrebuilt/5.4/arm64" remote="aosp" groups="pdk" clone-depth="1"/>
@@ -949,7 +1001,6 @@
   <project name="platform/packages/modules/NetworkPermissionConfig" path="packages/modules/NetworkPermissionConfig" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
   <project name="platform/packages/modules/NetworkStack" path="packages/modules/NetworkStack" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
   <project name="platform/packages/modules/NeuralNetworks" path="packages/modules/NeuralNetworks" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
-  <project name="platform/packages/modules/Permission" path="packages/modules/Permission" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
   <project name="platform/packages/modules/RuntimeI18n" path="packages/modules/RuntimeI18n" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
   <project name="platform/packages/modules/Scheduling" path="packages/modules/Scheduling" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
   <project name="platform/packages/modules/SdkExtensions" path="packages/modules/SdkExtensions" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
@@ -961,7 +1012,6 @@
   <project name="platform/packages/providers/TvProvider" path="packages/providers/TvProvider" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/providers/UserDictionaryProvider" path="packages/providers/UserDictionaryProvider" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
   <project name="platform/packages/screensavers/Basic" path="packages/screensavers/Basic" remote="aosp" groups="pdk-fs"/>
-  <project name="platform/packages/screensavers/PhotoTable" path="packages/screensavers/PhotoTable" remote="aosp" groups="pdk-fs"/>
   <project name="platform/packages/services/AlternativeNetworkAccess" path="packages/services/AlternativeNetworkAccess" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
   <project name="platform/packages/services/BuiltInPrintService" path="packages/services/BuiltInPrintService" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
   <project name="platform/packages/services/Car" path="packages/services/Car" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
@@ -1026,6 +1076,7 @@
   <project name="platform/prebuilts/vndk/v28" path="prebuilts/vndk/v28" remote="aosp" groups="pdk" clone-depth="1"/>
   <project name="platform/prebuilts/vndk/v29" path="prebuilts/vndk/v29" remote="aosp" groups="pdk" clone-depth="1"/>
   <project name="platform/prebuilts/vndk/v30" path="prebuilts/vndk/v30" remote="aosp" groups="pdk" clone-depth="1"/>
+  <project name="platform/prebuilts/vndk/v31" path="prebuilts/vndk/v31" remote="aosp" groups="pdk" clone-depth="1"/>
   <project name="platform/sdk" path="sdk" remote="aosp" groups="pdk-cw-fs,pdk-fs"/>
   <project name="platform/system/apex" path="system/apex" remote="aosp" groups="pdk"/>
   <project name="platform/system/bpf" path="system/bpf" remote="aosp" groups="pdk"/>
@@ -1033,18 +1084,15 @@
   <project name="platform/system/ca-certificates" path="system/ca-certificates" remote="aosp" groups="pdk"/>
   <project name="platform/system/chre" path="system/chre" remote="aosp" groups="pdk"/>
   <project name="platform/system/connectivity/wificond" path="system/connectivity/wificond" remote="aosp" groups="pdk"/>
-  <project name="platform/system/extras" path="system/extras" remote="aosp" groups="pdk"/>
   <project name="platform/system/gatekeeper" path="system/gatekeeper" remote="aosp" groups="pdk"/>
   <project name="platform/system/gsid" path="system/gsid" remote="aosp" groups="pdk"/>
   <project name="platform/system/hardware/interfaces" path="system/hardware/interfaces" remote="aosp" groups="pdk"/>
   <project name="platform/system/hwservicemanager" path="system/hwservicemanager" remote="aosp" groups="pdk"/>
   <project name="platform/system/incremental_delivery" path="system/incremental_delivery" remote="aosp" groups="pdk"/>
   <project name="platform/system/iorap" path="system/iorap" remote="aosp" groups="pdk"/>
-  <project name="platform/system/keymaster" path="system/keymaster" remote="aosp" groups="pdk"/>
   <project name="platform/system/libartpalette" path="system/libartpalette" remote="aosp" groups="pdk"/>
   <project name="platform/system/libbase" path="system/libbase" remote="aosp" groups="pdk"/>
   <project name="platform/system/libfmq" path="system/libfmq" remote="aosp" groups="pdk"/>
-  <project name="platform/system/libhidl" path="system/libhidl" remote="aosp" groups="pdk"/>
   <project name="platform/system/libhwbinder" path="system/libhwbinder" remote="aosp" groups="pdk"/>
   <project name="platform/system/libprocinfo" path="system/libprocinfo" remote="aosp" groups="pdk"/>
   <project name="platform/system/libsysprop" path="system/libsysprop" remote="aosp" groups="pdk"/>
@@ -1060,7 +1108,6 @@
   <project name="platform/system/netd" path="system/netd" remote="aosp" groups="pdk"/>
   <project name="platform/system/nfc" path="system/nfc" remote="aosp" groups="pdk"/>
   <project name="platform/system/nvram" path="system/nvram" remote="aosp" groups="pdk"/>
-  <project name="platform/system/security" path="system/security" remote="aosp" groups="pdk"/>
   <project name="platform/system/server_configurable_flags" path="system/server_configurable_flags" remote="aosp" groups="pdk"/>
   <project name="platform/system/teeui" path="system/teeui" remote="aosp" groups="pdk"/>
   <project name="platform/system/testing/gtest_extras" path="system/testing/gtest_extras" remote="aosp" groups="pdk"/>
@@ -1112,8 +1159,9 @@
   <project name="platform/tools/tradefederation/prebuilts" path="tools/tradefederation/prebuilts" remote="aosp" groups="pdk,tradefed"/>
   <project name="platform/tools/treble" path="tools/treble" remote="aosp" groups="tools,pdk"/>
   <project name="platform/tools/trebuchet" path="tools/trebuchet" remote="aosp" groups="tools,cts,pdk,pdk-cw-fs,pdk-fs"/>
-  <project name="tom-pratt/android_device_lineage_car" path="device/lineage/car" revision="main" groups="local::roomservice"/>
   <project name="tom-pratt/android_device_samsung_gts4lv" path="device/samsung/gts4lv" revision="main" groups="local::roomservice"/>
+  <project name="tom-pratt/android_device_samsung_gts4lv-common" path="device/samsung/gts4lv-common" revision="main" groups="local::roomservice"/>
+  <project name="tom-pratt/android_kernel_samsung_sdm670" path="kernel/samsung/sdm670" revision="main" groups="local::roomservice"/>
   <project name="toolchain/benchmark" remote="aosp"/>
   <project name="toolchain/llvm-project" path="external/llvm-project" remote="aosp" groups="pdk"/>
   <project name="toolchain/pgo-profiles" remote="aosp" groups="pdk"/>
@@ -1121,7 +1169,7 @@
   
   <repo-hooks in-project="platform/tools/repohooks" enabled-list="pre-upload"/>
   
-  <superproject name="platform/superproject" remote="aosp" revision="android-12.0.0_r27"/>
+  <superproject name="platform/superproject" remote="aosp" revision="android-12.1.0_r4"/>
   
   <contactinfo bugurl="go/repo-bug"/>
 </manifest>
